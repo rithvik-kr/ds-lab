@@ -19,26 +19,25 @@ void insert()
 	scanf("%d",&newnode->data);
 	newnode->next=NULL;
 	newnode->prev=NULL;
-	if(start==NULL)
-		start=newnode;
-	else if(newnode->data < start->data)
-	{
-		newnode->next=start;
-		start->prev=newnode;
-		start=newnode;
+	NODE* prev = NULL;
+	NODE* cur = start;
+	while(cur && newnode -> data > cur -> data) {
+		prev = cur;
+		cur = cur -> next;
 	}
-	else if(newnode->data > start->data)
-	{
-		ptr=start;
-		while(newnode->data > ptr->data && ptr->next!=NULL)
-		{
-			ptr=ptr->next;
-		}
-		newnode->next=ptr->next;
-		ptr->next=newnode;
-		newnode->prev=ptr;
-		ptr=ptr->next;
-		ptr->prev=newnode;
+	if(!prev) {
+		newnode -> next = start;
+		if(start)
+			start -> prev = newnode;
+		start = newnode;
+	}
+	else {
+		newnode -> next = cur;
+		newnode -> prev = prev;
+		prev -> next = newnode;		
+		if(cur)
+			cur -> prev = newnode;
+			
 	}
 }
 

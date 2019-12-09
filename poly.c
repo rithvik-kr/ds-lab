@@ -19,22 +19,19 @@ void insert()
 	scanf("%d",&temp->coef);
 	printf("Enter the Power of the Polynomial\n");
 	scanf("%d",&temp->power);
-	if(start==NULL)
-		start=temp;
-	else if (temp->power > start->power)
-		{
-			temp->link=start;
-			start=temp;
-		}
-	else
-	{
-		ptr=start;
-		while(temp->power < ptr->power && ptr->link!=NULL)
-		{
-			ptr=ptr->link;
-		}
-		temp->link=ptr->link;
-		ptr->link=temp;
+	NODE* prev = NULL;
+	NODE* cur = start;
+	while(cur && cur -> power > temp -> power){
+		prev = cur;
+		cur = cur -> link;
+	}
+	if(!prev){
+		temp -> link = start;
+		start = temp;
+	}
+	else {
+		prev -> link = temp;
+		temp -> link = cur;
 	}
 }
 
